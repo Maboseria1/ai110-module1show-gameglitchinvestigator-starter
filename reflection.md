@@ -31,6 +31,8 @@ Document at least 3 bugs you found. Add rows as needed.
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
+I used Claude Code and ChatGPT as my AI teammates on this project. One suggestion that was correct came from Claude, which explained that the backwards hints were caused by the message text being paired with the wrong outcome inside `check_guess` (so "Too High" was returning the "go higher" message). I verified this by running the Streamlit app and using the Developer Debug Info to see the secret number, then comparing it to my guesses to confirm the hints pointed the right way after the fix. The misleading part was not one single wrong line of code but more of a behavior risk: AI tends to want to fix many bugs at once, which could have introduced new problems I did not ask for. To handle that, I kept my prompts focused on one bug at a time and reviewed the diff before accepting any change, instead of trusting the AI to rewrite everything safely.
+
 ---
 
 ## 3. Debugging and testing your fixes
@@ -39,6 +41,8 @@ Document at least 3 bugs you found. Add rows as needed.
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
+
+I decided a bug was really fixed by testing it in two ways: manually in the running app and with automated tests. For the hint bug, I used Claude Code to refactor `check_guess` out of `app.py` into `logic_utils.py`, reviewed the diff before accepting it, and then played the game while checking the secret in Developer Debug Info to confirm the hints finally pointed the correct direction. I also fixed the attempts counter so the game starts at 0 attempts and Normal difficulty correctly shows 8 attempts left before the first guess. To back this up, I used Claude Code to create pytest tests in `tests/test_game_logic.py` that check a winning guess returns `"Win"`, a high guess returns `"Too High"` and tells the player to go lower, and a low guess returns `"Too Low"` and tells the player to go higher. AI helped me design these tests by suggesting the cases to cover, and running pytest gave me 3 passing tests, which made me confident the logic was actually correct and not just looking right in one playthrough.
 
 ---
 
