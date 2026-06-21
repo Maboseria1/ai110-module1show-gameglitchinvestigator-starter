@@ -79,9 +79,9 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
-    # FIXME: attempts starts at 1, so "attempts left" shows one too few before
-    # any guess is made (e.g. 7 instead of 8 on Normal). Should start at 0.
-    st.session_state.attempts = 1
+    # Attempt counter now starts at 0 before the first guess, so "attempts left"
+    # shows the full limit at the start (e.g. 8 on Normal instead of 7).
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0
