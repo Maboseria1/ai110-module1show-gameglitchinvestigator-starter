@@ -50,6 +50,8 @@ I decided a bug was really fixed by testing it in two ways: manually in the runn
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+The biggest thing I learned is that Streamlit reruns the whole script from top to bottom every time the user interacts with the app, like clicking a button or typing in a box. That means normal variables get recreated each time, so they cannot remember anything between interactions on their own. To fix that, Streamlit gives you `st.session_state`, which is like a little storage box that survives across reruns. In this game, `st.session_state` is what lets the app remember the secret number, the attempts, the score, the status, and the guess history instead of resetting them every time I click "Submit." Once I understood that reruns happen constantly, a lot of the "the secret keeps changing" type of confusion started to make more sense.
+
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -58,3 +60,5 @@ I decided a bug was really fixed by testing it in two ways: manually in the runn
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+One habit I want to keep is making small, focused commits and asking AI to fix one bug at a time instead of letting it rewrite everything at once. Working bug-by-bug made it way easier to see what changed and to back out if something went wrong, and I also want to keep reviewing the diffs and testing my changes before I commit them. One thing I would do differently next time is ask the AI to explain its plan first before it starts editing, so I understand the approach instead of just trusting the code it spits out. The biggest mindset shift is that this project showed me AI-generated code can look completely correct while still having hidden logic bugs, like the backwards hints that "ran" fine but were wrong. Because of that, I now treat AI as a teammate whose work I still have to verify myself rather than something I can copy and trust blindly.
