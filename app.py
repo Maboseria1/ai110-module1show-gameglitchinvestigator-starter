@@ -34,6 +34,8 @@ def check_guess(guess, secret):
         return "Win", "🎉 Correct!"
 
     try:
+        # FIXME: hint messages are backwards here. "Too High" should tell the
+        # player to go LOWER, and "Too Low" should tell them to go HIGHER.
         if guess > secret:
             return "Too High", "📈 Go HIGHER!"
         else:
@@ -93,6 +95,8 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
+    # FIXME: attempts starts at 1, so "attempts left" shows one too few before
+    # any guess is made (e.g. 7 instead of 8 on Normal). Should start at 0.
     st.session_state.attempts = 1
 
 if "score" not in st.session_state:
